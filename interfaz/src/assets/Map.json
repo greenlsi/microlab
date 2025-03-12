@@ -1,0 +1,307 @@
+{
+    "CN7_1": {
+        "type": "gpio",
+        "port": "gpio_c",
+        "pin": "10"
+    },
+    "CN7_2": {
+        "peripheral": "gpio_c",
+        "pin": "11"
+    },
+    "CN7_3": {
+        "peripheral": "gpio_c",
+        "pin": "12"
+    },
+    "CN7_4": {
+        "peripheral": "gpio_d",
+        "pin": "2"
+    },
+    "CN7_5": {
+        "peripheral": "gpio_d",
+        "pin": "3"
+    },
+    "CN7_6": {
+        "peripheral": "gpio_d",
+        "pin": "1"
+    },
+    "CN7_7": {
+        "peripheral": "gpio_d",
+        "pin": "2"
+    },
+    "CN7_8": {
+        "peripheral": "gpio_d",
+        "pin": "3"
+    },
+    "CN7_9": {
+        "peripheral": "gpio_d",
+        "pin": "4"
+    },
+    "CN7_10": {
+        "peripheral": "gpio_d",
+        "pin": "5"
+    },
+    "CN7_11": {
+        "peripheral": "gpio_d",
+        "pin": "6"
+    },
+    "CN7_12": {
+        "peripheral": "gpio_d",
+        "pin": "7"
+    },
+    "CN7_13": {
+        "peripheral": "gpio_a",
+        "pin": "13"
+    },
+    "CN7_14": {
+        "peripheral": "gpio_e",
+        "pin": "1"
+    },
+    "CN7_15": {
+            "peripheral": "gpio_a",
+            "pin": "15"
+    },
+    "CN7_16": {
+        "type": "Voltage",
+        "value": 3.3
+    },
+    "CN7_17": {
+        "peripheral": "gpio_e",
+        "pin": "4"
+    },
+    "CN7_18": {
+        "type": "Voltage",
+        "value": 3.3
+    },
+    "CN7_19": {
+        "peripheral": "gpio_f",
+        "pin": "0"
+    },
+    "CN7_20": {
+        "peripheral": "gpio_f",
+        "pin": "1"
+    },
+    "CN7_21": {
+        "peripheral": "gpio_b",
+        "pin": "7"
+    },
+    "CN7_22": {
+        "peripheral": "gpio_f",
+        "pin": "3"
+    },
+    "CN7_23": {
+        "peripheral": "gpio_c",
+        "pin": "13"
+    },
+    "CN7_24": {
+        "peripheral": "gpio_f",
+        "pin": "5"
+    },
+    "CN7_25": {
+        "peripheral": "gpio_c",
+        "pin": "14"
+    },
+    "CN7_26": {
+        "peripheral": "gpio_g",
+        "pin": "1"
+    },
+    "CN7_27": {
+        "peripheral": "gpio_c",
+        "pin": "15"
+    },
+    "CN7_28": {
+        "peripheral": "gpio_a",
+        "pin": "0"
+    },
+    "CN7_29": {
+        "peripheral": "gpio_h",
+        "pin": "0"
+    },
+    "CN7_30": {
+        "peripheral": "gpio_a",
+        "pin": "1"
+    },
+    "CN7_31": {
+        "peripheral": "gpio_h",
+        "pin": "1"
+    },
+    "CN7_32": {
+        "peripheral": "gpio_a",
+        "pin": "4"
+    },
+    "CN7_33": {
+        "peripheral": "gpio_h",
+        "pin": "2"
+    },
+    "CN7_34": {
+        "peripheral": "gpio_b",
+        "pin": "0"
+    },
+    "CN7_35": {
+        "peripheral": "gpio_c",
+        "pin": "2"
+    },
+    "CN7_36": {
+        "peripheral": "gpio_c",
+        "pin": "1"
+    },
+    "CN7_37": {
+        "peripheral": "gpio_c",
+        "pin": "2"
+    },
+    "CN7_38": {
+        "peripheral": "gpio_c",
+        "pin": "0"
+    },
+    "CN10_1": {
+        "peripheral": "gpio_c",
+        "pin": "9"
+    },
+    "CN10_2": {
+        "peripheral": "gpio_c",
+        "pin": "8"
+    },
+    "CN10_3": {
+        "peripheral": "gpio_b",
+        "pin": "8"
+    },
+    "CN10_4": {
+        "peripheral": "gpio_c",
+        "pin": "6"
+    },
+    "CN10_5": {
+        "peripheral": "gpio_b",
+        "pin": "9"
+    },
+    "CN10_6": {
+        "peripheral": "gpio_c",
+        "pin": "5"
+    },
+    "CN10_7": {
+        "peripheral": "gpio_d",
+        "pin": "2"
+    },
+    "CN10_8": {
+        "peripheral": "gpio_d",
+        "pin": "3"
+    },
+    "CN10_9": {
+        "peripheral": "gpio_d",
+        "pin": "4"
+    },
+    "CN10_10": {
+        "peripheral": "gpio_d",
+        "pin": "5"
+    },
+    "CN10_11": {
+        "peripheral": "gpio_a",
+        "pin": "5"
+    },
+    "CN10_12": {
+        "peripheral": "gpio_a",
+        "pin": "12"
+    },
+    "CN10_13": {
+        "peripheral": "gpio_a",
+        "pin": "6"
+    },
+    "CN10_14": {
+        "peripheral": "gpio_a",
+        "pin": "11"
+    },
+    "CN10_15": {
+        "peripheral": "gpio_a",
+        "pin": "7"
+    },
+    "CN10_16": {
+        "peripheral": "gpio_b",
+        "pin": "12"
+    },
+    "CN10_17": {
+        "peripheral": "gpio_b",
+        "pin": "6"
+    },
+    "CN10_18": {
+        "peripheral": "gpio_e",
+        "pin": "5"
+    },
+    "CN10_19": {
+        "peripheral": "gpio_c",
+        "pin": "7"
+    },
+    "CN10_20": {
+        "type": "GND"
+    
+    },
+    "CN10_21": {
+        "peripheral": "gpio_a",
+        "pin": "9"
+    },
+    "CN10_22": {
+        "peripheral": "gpio_b",
+        "pin": "8"
+    },
+    "CN10_23": {
+        "peripheral": "gpio_a",
+        "pin": "8"
+    },
+    "CN10_24": {
+        "peripheral": "gpio_b",
+        "pin": "1"
+    },
+    "CN10_25": {
+        "peripheral": "gpio_b",
+        "pin": "10"
+    },
+    "CN10_26": {
+        "peripheral": "gpio_b",
+        "pin": "15"
+    },
+    "CN10_27": {
+        "peripheral": "gpio_b",
+        "pin": "4"
+    },
+    "CN10_28": {
+        "peripheral": "gpio_b",
+        "pin": "14"
+    },
+    "CN10_29": {
+        "peripheral": "gpio_b",
+        "pin": "5"
+    },
+    "CN10_30": {
+        "peripheral": "gpio_b",
+        "pin": "13"
+    },
+    "CN10_31": {
+        "peripheral": "gpio_b",
+        "pin": "3"
+    },
+    "CN10_32": {
+        "type": "unimplemented"
+    },
+    "CN10_33": {
+        "peripheral": "gpio_a",
+        "pin": "10"
+    },
+    "CN10_34": {
+        "peripheral": "gpio_c",
+        "pin": "4"
+    },
+    "CN10_35": {
+        "peripheral": "gpio_a",
+        "pin": "2"
+    },
+    "CN10_36": {
+        "peripheral": "gpio_h",
+        "pin": "5"
+    },
+    "CN10_37": {
+        "peripheral": "gpio_a",
+        "pin": "3"
+    },
+    "CN10_38": {
+        "type":"NC"
+    }
+}
+
+

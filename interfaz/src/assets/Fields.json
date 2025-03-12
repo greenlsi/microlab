@@ -1,0 +1,19 @@
+
+{
+    "fields": {
+        "led2": {
+            "type": "gpio",
+            "port": "gpio_a",
+            "pin": 5
+        },
+        "boton": {
+            "type": "gpio",
+            "port": "gpio_c",
+            "pin": 13
+        }
+    }
+}
+
+
+
+
