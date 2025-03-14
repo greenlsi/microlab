@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import useWebSocket from "react-use-websocket";
+import "../styles/Websocket.css";
 
 interface WebSocketComponentProps {
     onMessage?: (message: any) => void;
@@ -66,8 +67,12 @@ const WebSocketComponent: React.FC<WebSocketComponentProps> = ({ onMessage, fiel
     }[readyState as 0 | 1 | 2 | 3] || "Desconocido";
 
     return (
-        <div>
+        <div className="websocket-container">
             <div className={lineClass}></div>
+            <div 
+            >
+
+            </div>
             <p>Estado de la conexión: {connectionStatus}</p>
         </div>
     );

@@ -1,0 +1,87 @@
+/* 🔹 Contenedor principal (usa Grid para asegurar el espacio exacto) */
+.layout {
+	display: grid;
+	grid-template-rows: 60px auto 40px; /* 🔥 Fila fija para Header, Footer y el contenido en el medio */
+	height: 100vh; /* Toda la pantalla */
+	width: 100vw;
+	overflow: hidden;
+}
+
+/* 🔹 HEADER */
+.header {
+	background: linear-gradient(135deg, #0091AD, #5DBB63);
+	color: white;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 5px 20px;
+	height: 60px; /* 🔥 Fijo */
+	width: 100%;
+}
+
+/* 🔹 MAIN (Solo ocupa el espacio disponible entre Header y Footer) */
+.main-content {
+	display: grid;
+	grid-template-columns: 3fr 2fr; /* 🔥 Board ocupa 3 partes, resultado 2 */
+	padding: 10px;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	gap: 10px;
+}
+
+/* 🔹 FOOTER */
+.footer {
+	background: linear-gradient(135deg, #0091AD, #5DBB63);
+	height: 45px; /* 🔥 Fijo */
+	width: 100%;
+	text-align: center;
+	padding: 5px 10px; /* 🔥 Menos padding */
+	position: fixed;
+	bottom: 0;
+	color: white;
+	font-size: 0.75rem; /* 🔥 Reducimos el tamaño de la fuente */
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+
+
+
+
+/* 🔹 Reducimos tamaño del título */
+.header h1 {
+	font-size: 1.4rem; /* 🔥 Antes 1.8rem */
+	margin: 0;
+	font-weight: bold;
+	letter-spacing: 1.5px;
+	padding-left: 20px; /* 🔥 Ajusta según necesites */
+}
+
+
+
+/* 🔹 Ajustamos los links para que no ocupen tanto espacio */
+.footer .links {
+	margin-top: 4px; /* 🔥 Antes 10px */
+	font-size: 0.75rem; /* 🔥 Tamaño más pequeño */
+}
+
+/* 🔹 Links más compactos */
+.footer .links a {
+	color: #01454b;
+	text-decoration: none;
+	margin: 0 6px; /* 🔥 Menos espacio entre links */
+	transition: color 0.3s ease;
+}
+
+.footer .links a:hover {
+	color: #001aff;
+}
+
+/* 🔹 Ajustamos el texto del autor */
+.footer .author p {
+	font-size: 0.7rem; /* 🔥 Más pequeño */
+	margin: 3px 0; /* 🔥 Menos espacio vertical */
+}

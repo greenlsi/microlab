@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
-import WebSocketComponent from './WebSocketComponent.tsx';
-import './App.css';
-import Board from './board.tsx';
+import WebSocketComponent from './components/WebSocketComponent.tsx';
+import './styles/App.css';
+import Board from './components/Board.tsx';
 import importedMapData from './assets/Map2.json';
 import initialFieldsData from './assets/Fields.json';
-import SelectedPins from './selectedPins.tsx';
+import SelectedPins from './components/selectedPins.tsx';
+import Layout from "./components/Layout";
+
 //import 'bootstrap/dist/css/bootstrap.min.css';
 
 // interface Field {
@@ -105,19 +107,20 @@ function App() {
     };
 
     return (
-        <div className="container">
-            <div className="board-container">
-                <Board ledState={ledState} changeButtonState={changeButtonState} modifyFields={modifyFields} fieldsData={fieldsData}/>
-            </div>
-            <div className="resultado">
-                <div className="websocket-container">
-                    <div className="websocket-view">
-                        <WebSocketComponent onMessage={handleWebSocketMessage} fieldsData={fieldsData} />
-                    </div>
+        <Layout>
+                <div className="board-container">
+                    <Board ledState={ledState} changeButtonState={changeButtonState} modifyFields={modifyFields} fieldsData={fieldsData}/>
                 </div>
-                {resultado && <SelectedPins pins={resultado} />}
-            </div>
-        </div>
+                {/* <Board ledState={ledState} changeButtonState={changeButtonState} modifyFields={modifyFields} fieldsData={fieldsData}/> */}
+
+                <div className="resultado">
+                    
+                    <WebSocketComponent onMessage={handleWebSocketMessage} fieldsData={fieldsData} />
+                    
+                    {resultado && <SelectedPins pins={resultado} />}
+               
+                </div>
+        </Layout>
     );
 }
 

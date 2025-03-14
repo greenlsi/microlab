@@ -1,0 +1,17 @@
+/* 🔹 Ajuste del tamaño de la imagen del board */
+.boardpic {
+  height: 85%;
+  max-height: 85%; /* No crece más de su contenedor */
+  width: auto;
+  display: flex;
+  justify-content: center;
+  object-fit:	contain;
+}
+
+
+/* 🔹 Asegura que el SVG dentro de Board no desborde */
+.board-container svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
