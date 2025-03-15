@@ -1,5 +1,5 @@
 
-Map2.json: 
+Map.json: 
 tipos y sus atributos correspondientes
 
 | Type    | Attributes    |

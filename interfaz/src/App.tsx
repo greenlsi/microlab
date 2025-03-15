@@ -2,37 +2,11 @@ import { useEffect, useState } from 'react';
 import WebSocketComponent from './components/WebSocketComponent.tsx';
 import './styles/App.css';
 import Board from './components/Board.tsx';
-import importedMapData from './assets/Map2.json';
+import importedMapData from './assets/Map.json';
 import initialFieldsData from './assets/Fields.json';
 import SelectedPins from './components/selectedPins.tsx';
 import Layout from "./components/Layout";
-
-//import 'bootstrap/dist/css/bootstrap.min.css';
-
-// interface Field {
-//     peripheral: string;
-//     pin: string;
-//     data?: boolean;
-//     [key: string]: any; // Permite atributos adicionales
-// }
-
-interface Field {
-    type: "gpio" | "power" | "control" | "NC" | "analog" | "digital"| string;
-    port?: string; // Indica el puerto como "gpio_a", "gpio_b", etc.
-    pin?: number | null; // Puede ser un número o null en caso de no aplicar
-    value?: number | null; // Para los pines de power
-    name?: string; // Para identificar nombres como "VDD", "RESET", etc.
-    data?: boolean | number; // Opcional, si es necesario para alguna funcionalidad
-    [key: string]: any; // Permite atributos adicionales
-}
-
-interface FieldsData {
-    fields: Record<string, Field>;
-}
-
-interface MapData {
-    [key: string]: Field;
-}
+import { Field, FieldsData, MapData } from './types/fieldTypes';
 
 
 function App() {
@@ -96,7 +70,11 @@ function App() {
     const handleWebSocketMessage = (webSocketMessage: string | object) => {
         try {
             const data: { fields: Field } = typeof webSocketMessage === "string" ? JSON.parse(webSocketMessage) : webSocketMessage;
-            setResultado(data.fields);
+           //Hacemos un patch de data.fields en fieldsData.fields
+           const result = {...fieldsData.fields, ...data.fields};
+
+            setResultado(result);
+
 
             if (data.fields["led2"]) {
                 setLedState(data.fields["led2"].data || false);
@@ -117,7 +95,7 @@ function App() {
                     
                     <WebSocketComponent onMessage={handleWebSocketMessage} fieldsData={fieldsData} />
                     
-                    {resultado && <SelectedPins pins={resultado} />}
+                    {resultado && <SelectedPins fields={resultado} />}
                
                 </div>
         </Layout>

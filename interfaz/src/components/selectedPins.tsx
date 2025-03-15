@@ -1,192 +1,123 @@
 import React from "react";
 import "../styles/SelectedPins.css"; // Archivo CSS para estilos
 import alternateTable from "../assets/alternate_function2.json"; // Archivo JSON con datos de alternate function
+import { AlternateTable, FieldsData, Field } from "../types/fieldTypes"; // Importar tipos de datos
+import { fetchTimerInfo } from "../hooks/useApi"; // Importar función para obtener información de temporizadores
+import { useEffect, useState } from "react";
+import ToggleDescription from "./ToggleDescription";
 
-interface Field {
-    type: "gpio" | "power" | "control" | "NC" | string;
-    port?: string; // Indica el puerto como "gpio_a", "gpio_b", etc.
-    pin?: number | null; // Puede ser un número o null en caso de no aplicar
-    value?: number | null; // Para los pines de power
-    name?: string; // Para identificar nombres como "VDD", "RESET", etc.
-    data?: boolean | number; // Opcional, si es necesario para alguna funcionalidad
-    [key: string]: any; // Permite atributos adicionales
-}
+const SelectedPins: React.FC<FieldsData> = ({ fields }) => {
 
-interface AlternateFunction {
-    [key: string]: string | undefined; // Estructura de funciones alternativas por clave AF
-}
-interface PinMapping {
-    [pin: number]: AlternateFunction;
-}
+  //lógica para preparar toda la información fields y mostrarla en la interfaz:
 
-interface AlternateTable {
-    [port: string]: PinMapping;
-}
+  const [processedFields, setProcessedFields] = useState<Field[]>([]);
 
+  useEffect(() => {
+    // 🔥 Procesar los datos cada vez que `fields` cambie
+    const processFields = async () => {
+      const newFields: Field[] = await Promise.all(
+        Object.keys(fields).map(async (fieldKey) => {
+          const field = fields[fieldKey];
 
-interface SelectedPinsProps {
-    pins: Record<string, Field>;
-}
+          // 🔹 Obtener `alternateFunction` si el modo es "Alternate Function"
+          const alternateFunctionKey =
+            field.mode === "Alternate Function" && typeof field.data === "number"
+              ? `AF${field.data}`
+              : undefined;
 
+          const alternateFunction =
+            alternateFunctionKey && field.port && field.pin !== undefined
+              ? (alternateTable as AlternateTable)[field.port]?.[field.pin as number]?.[alternateFunctionKey]
+              : undefined;
 
-
-const SelectedPins: React.FC<SelectedPinsProps> = ({ pins }) => {
-    // return (
-    //     <div className="selected-pins-container">
-    //         <h3 className="title">PINS SELECCIONADOS</h3>
-    //         <div className="fields-grid-overflow-y-auto">
-    //             {Object.keys(pins).map((fieldKey, fieldIndex) => {
-    //                 const field = pins[fieldKey]; // Acceder al campo específico
+          // 🔹 Si `alternateFunction` es un Timer, obtener más información de la API
+          let timerInfo = null;
+          if (alternateFunction && alternateFunction.startsWith("TIM")) {
 
 
-    //                 // Obtener la función alternativa si el modo es "Alternate Function" y data es un número
-    //                 const alternateFunctionKey = field.mode === "Alternate Function" && typeof field.data === "number"
-    //                     ? `AF${field.data}`
-    //                     : undefined;
+            const match = alternateFunction.match(/TIM(\d+)_CH(\d+)/);
 
-    //                 const alternateFunction = alternateFunctionKey && field.port && field.pin !== undefined
-    //                     ? (alternateTable as AlternateTable)[field.port]?.[field.pin as number]?.[alternateFunctionKey]
-    //                     : undefined;
+            if (match) {
+              const timer = `Timer${match[1]}`;  // Convierte "TIM1" a "Timer1"
+              const channel = match[2]; //  Extrae solo el número, sin "CH"
+
+              // Llamada a la API para obtener más detalles del Timer
+              timerInfo = await fetchTimerInfo(timer, channel);
+            }
+          }
+
+          return {
+            key: fieldKey,
+            ...field,
+            alternateFunction,
+            timerInfo, // Se agrega la info del Timer si está disponible
+          };
+        })
+      );
+      console.log("newFields:", newFields);
+      setProcessedFields(newFields);
+    };
+
+    processFields();
+  }, [fields]);
 
 
-    //                 return (
-    //                     <div key={fieldIndex} className="field-card">
-    //                         <div className="field-body">
-    //                             <div className="pins-list">
-    //                                 <div className="pin-item">
-    //                                     <h5>
-    //                                         {fieldKey.toUpperCase()} {field.alias ? `(${field.alias})` : ""}
-    //                                     </h5>
+  return (
+    <div className="selected-pins-container">
+      <h3 className="title">PINS SELECCIONADOS</h3>
 
-    //                                     {/* Renderizar según el tipo de pin */}
-    //                                     {field.type === "gpio" && (
-    //                                         <>
-    //                                             <strong>Port:</strong> {field.port} <br />
-    //                                             <strong>Pin:</strong> {field.pin} <br />
-    //                                             {field.alias && (
-    //                                                 <>
-    //                                                     <strong>Alias:</strong> {field.alias} <br />
-    //                                                 </>
-    //                                             )}
-    //                                             {field.mode && <strong>Mode:</strong>}{field.mode} <br />
-    //                                             {field.data !== undefined && (
-    //                                                 alternateFunction ? (
-    //                                                     <div>
-    //                                                         <strong>Alternate Function:</strong> {alternateFunction} <br />
-    //                                                     </div>
-    //                                                 ) : (
-    //                                                     <div>
-    //                                                         <strong>Estado:</strong>
-    //                                                         <span className={`status ${field.data ? "high" : "low"}`}>
-    //                                                             {field.data ? "Alto" : "Bajo"}
-    //                                                         </span>
-    //                                                     </div>
-    //                                                 )
-    //                                             )}
-    //                                         </>
-    //                                     )}
-
-    //                                     {field.type === "power" && (
-    //                                         <>
-    //                                             <strong>Name:</strong> {field.alias} <br />
-    //                                         </>
-    //                                     )}
-
-    //                                     {field.type === "control" && (
-    //                                         <>
-    //                                             <strong>Name:</strong> {field.alias} <br />
-    //                                         </>
-    //                                     )}
-
-    //                                     {field.type === "NC" && (
-    //                                         <strong>No Connection</strong>
-    //                                     )}
-    //                                 </div>
-    //                             </div>
-    //                         </div>
-    //                     </div>
-    //                 );
-    //             })}
-    //         </div>
-    //     </div>
-    // );
-    return (
-  <div className="selected-pins-container">
-    <h3 className="title">PINS SELECCIONADOS</h3>
-        
-    {/* 🔹 Contenedor con Grid para distribuir las tarjetas */}
-    <div className="field-grid">
-      {Object.keys(pins).map((fieldKey, fieldIndex) => {
-        const field = pins[fieldKey];
-                            // Obtener la función alternativa si el modo es "Alternate Function" y data es un número
-                    const alternateFunctionKey = field.mode === "Alternate Function" && typeof field.data === "number"
-                        ? `AF${field.data}`
-                        : undefined;
-
-                    const alternateFunction = alternateFunctionKey && field.port && field.pin !== undefined
-                        ? (alternateTable as AlternateTable)[field.port]?.[field.pin as number]?.[alternateFunctionKey]
-                        : undefined;
-
-        return (
-          <div key={fieldIndex} className="field-card">
+      {/* 🔹 Renderizado final sin cálculos */}
+      <div className="field-grid">
+        {processedFields.map((field, index) => (
+          <div key={index} className="field-card">
             <div className="field-body">
               <div className="pins-list">
                 <div className="pin-item">
-                  <h3>
-                    {fieldKey.toUpperCase()} {field.alias ? `(${field.alias})` : ""}
-                  </h3>
+                  <h3>{field.key.toUpperCase()} {field.alias ? `(${field.alias})` : ""}</h3>
 
-                  {/* 🔹 Renderizar según el tipo de pin */}
-                  {field.type === "gpio" && (
-                    <>
-                      <strong>Port:</strong> {field.port} <br />
-                      <strong>Pin:</strong> {field.pin} <br />
-                      {field.alias && (
-                        <>
-                          <strong>Alias:</strong> {field.alias} <br />
-                        </>
-                      )}
-                      {field.mode && <strong>Mode:</strong>}{field.mode} <br />
-                      {field.data !== undefined && (
-                        alternateFunction ? (
-                          <div>
-                            <strong>Alternate Function:</strong> {alternateFunction} <br />
-                          </div>
-                        ) : (
-                          <div>
-                            <strong>Estado:</strong>
-                            <span className={`status ${field.data ? "high" : "low"}`}>
-                              {field.data ? "Alto" : "Bajo"}
-                            </span>
-                          </div>
-                        )
-                      )}
-                    </>
+                  {/* 🔹 Mostrar los datos procesados */}
+                  {field.port && <><strong>Port:</strong> {field.port} <br /></>}
+                  {field.pin !== null && field.pin !== undefined && (
+                    <><strong>Pin:</strong> {field.pin} <br /></>
+                  )}
+                  {field.mode && <><strong>Mode:</strong> {field.mode} <br /></>}
+
+                  {field.alternateFunction && (
+                    <><strong>Alternate Function:</strong> {field.alternateFunction} <br /></>
                   )}
 
-                  {field.type === "power" && (
-                    <>
-                      <strong>Name:</strong> {field.alias} <br />
-                    </>
+                  {field.timerInfo && (
+                    <div>
+                      <strong>Timer Info:</strong>
+                      <p>Timer: {field.timerInfo.timer}</p>
+                      <p>Channel: {field.timerInfo.channel}</p>
+                      <p>ARR: {field.timerInfo.ARR}</p>
+                      <p>PSC: {field.timerInfo.PSC}</p>
+                    </div>
                   )}
 
-                  {field.type === "control" && (
-                    <>
-                      <strong>Name:</strong> {field.alias} <br />
-                    </>
+                  {field.data !== undefined && !field.alternateFunction && (
+                    <div>
+                      <strong>Estado:</strong>
+                      <span className={`status ${field.data ? "high" : "low"}`}>
+                        {field.data ? "Alto" : "Bajo"}
+                      </span>
+                    </div>
+                  )}
+                  {field.type === "NC" && (
+                    <strong>No Connection</strong>
                   )}
 
-                  {field.type === "NC" && <strong>No Connection</strong>}
+                  {field.description && <ToggleDescription description={field.description} />}
+
                 </div>
               </div>
             </div>
           </div>
-        );
-      })}
+        ))}
+      </div>
     </div>
-  </div>
-);
-
+  );
 };
 
 

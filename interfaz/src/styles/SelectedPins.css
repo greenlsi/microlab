@@ -20,6 +20,10 @@
   max-height: 95%;
   overflow-y: auto; 
 }
+.field-body {
+  width: 90%;
+}
+
 
 /* 🔹 Estilo de cada tarjeta */
 .field-card {

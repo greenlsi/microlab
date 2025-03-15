@@ -1,26 +1,11 @@
 import React, { useEffect, useRef} from "react";
 import * as d3 from "d3";
 import '../styles/Board.css';
+import { BoardProps } from "../types/fieldTypes";
 
-interface BoardProps {
-    ledState: boolean;
-    changeButtonState: () => void;
-    modifyFields: (id: string) => void;
-    fieldsData: FieldsData;
-}
 
-interface Field {
-    type: "gpio" | "power" | "control" | "NC" | "analog" | "digital"| string;
-    port?: string; // Indica el puerto como "gpio_a", "gpio_b", etc.
-    pin?: number | null; // Puede ser un número o null en caso de no aplicar
-    value?: number | null; // Para los pines de power
-    name?: string; // Para identificar nombres como "VDD", "RESET", etc.
-    data?: boolean | number; // Opcional, si es necesario para alguna funcionalidad
-    [key: string]: any; // Permite atributos adicionales
-}
-interface FieldsData {
-    fields: Record<string, Field>;
-}
+
+
 
 const Board: React.FC<BoardProps> = ({ ledState, changeButtonState, modifyFields, fieldsData }) => {
     const svgRef = useRef<SVGSVGElement | null>(null);
