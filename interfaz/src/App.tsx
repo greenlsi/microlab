@@ -6,12 +6,13 @@ import importedMapData from './assets/Map.json';
 import initialFieldsData from './assets/Fields.json';
 import SelectedPins from './components/selectedPins.tsx';
 import Layout from "./components/Layout";
-import { Field, FieldsData, MapData } from './types/fieldTypes';
+import { Field, FieldsData, MapData, LedState  } from './types/fieldTypes';
+
 
 
 function App() {
     const [isPressed, setIsPressed] = useState<boolean>(false);
-    const [ledState, setLedState] = useState<boolean>(false);
+    const [ledState, setLedState] = useState<Field>({ data: false, type: '' });
     const [fieldsData, setFieldsData] = useState<FieldsData>(initialFieldsData);
     const [resultado, setResultado] = useState<typeof fieldsData.fields>(initialFieldsData.fields);
     const [mapData] = useState<MapData>(importedMapData);
@@ -76,13 +77,18 @@ function App() {
             setResultado(result);
 
 
-            if (data.fields["led2"]) {
-                setLedState(data.fields["led2"].data || false);
-            }
+            // if (data.fields["led2"]) {
+            //     setLedState(data.fields["led2"].data || false);
+            // }
         } catch (error) {
             console.error("Error procesando el mensaje del WebSocket:", error);
         }
     };
+
+    const handleLedStateChange = (field: Field) => {
+        setLedState(field);
+      };
+
 
     return (
         <Layout>
@@ -95,7 +101,7 @@ function App() {
                     
                     <WebSocketComponent onMessage={handleWebSocketMessage} fieldsData={fieldsData} />
                     
-                    {resultado && <SelectedPins fields={resultado} />}
+                    {resultado && <SelectedPins fields={resultado} handleLedStateChange={handleLedStateChange}/>}
                
                 </div>
         </Layout>

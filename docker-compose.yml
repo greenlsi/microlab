@@ -1,0 +1,32 @@
+version: '3'
+services:
+  interfaz-grafica:
+    build:
+      context: ./interfaz  # Ruta de tu proyecto React
+    ports:
+      - "5173:5173"  # Puerto de la interfaz React
+      
+    volumes:
+      - ./interfaz:/app
+    # environment:
+    #   - VITE_APP_API_URL=http://localhost:8080
+    #   - VITE_APP_WS_URL=ws://localhost:8081
+    networks:
+      - mynetwork  # Conexión a la red personalizada
+
+  rust-server:
+    build:
+      context: ./qtestapp # Ruta de tu proyecto Rust
+    ports:
+      - "8080:8080"  # Puerto de la API HTTP
+      - "8081:8081"  # Puerto WebSocket
+      - "3000:3000"  # Puerto Qemu
+    environment:
+      - QEMU_URL=0.0.0.0:3000
+      - WS_URL=0.0.0.0:8081
+    networks:
+      - mynetwork  # Conexión a la misma red personalizada
+
+networks:
+  mynetwork:  # Red personalizada para asegurar la comunicación entre servicios
+    driver: bridge

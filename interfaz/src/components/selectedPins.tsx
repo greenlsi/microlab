@@ -5,30 +5,42 @@ import { AlternateTable, FieldsData, Field } from "../types/fieldTypes"; // Impo
 import { fetchTimerInfo } from "../hooks/useApi"; // Importar función para obtener información de temporizadores
 import { useEffect, useState } from "react";
 import ToggleDescription from "./ToggleDescription";
+import TimerView from "./TimerView";
 
-const SelectedPins: React.FC<FieldsData> = ({ fields }) => {
+interface SelectedPinsProps {
+  fields: Record<string, Field>;
+  handleLedStateChange: (field: Field) => void;
+}
+const SelectedPins: React.FC<SelectedPinsProps> = ({ fields, handleLedStateChange }) => {
 
   //lógica para preparar toda la información fields y mostrarla en la interfaz:
 
   const [processedFields, setProcessedFields] = useState<Field[]>([]);
+  function getAlternateFunction(field: Field, table: AlternateTable): string | undefined {
+    if (
+      field.mode === "Alternate Function" &&
+      typeof field.data === "number" &&
+      field.port &&
+      field.pin !== undefined
+    ) {
+      const afKey = `AF${field.data}`;
+      const result = table[field.port]?.[field.pin as number]?.[afKey];
+      return result ?? `No se encontró ${afKey} para ${field.port}${field.pin}`;
+    }
+    return undefined;
+  }
 
   useEffect(() => {
-    // 🔥 Procesar los datos cada vez que `fields` cambie
+    // Procesar los datos cada vez que `fields` cambie
     const processFields = async () => {
       const newFields: Field[] = await Promise.all(
         Object.keys(fields).map(async (fieldKey) => {
           const field = fields[fieldKey];
 
           // 🔹 Obtener `alternateFunction` si el modo es "Alternate Function"
-          const alternateFunctionKey =
-            field.mode === "Alternate Function" && typeof field.data === "number"
-              ? `AF${field.data}`
-              : undefined;
 
-          const alternateFunction =
-            alternateFunctionKey && field.port && field.pin !== undefined
-              ? (alternateTable as AlternateTable)[field.port]?.[field.pin as number]?.[alternateFunctionKey]
-              : undefined;
+          const alternateFunction = getAlternateFunction(field, alternateTable);
+
 
           // 🔹 Si `alternateFunction` es un Timer, obtener más información de la API
           let timerInfo = null;
@@ -38,12 +50,15 @@ const SelectedPins: React.FC<FieldsData> = ({ fields }) => {
             const match = alternateFunction.match(/TIM(\d+)_CH(\d+)/);
 
             if (match) {
-              const timer = `Timer${match[1]}`;  // Convierte "TIM1" a "Timer1"
+              const timer = `timer${match[1]}`;  // Convierte "TIM1" a "Timer1"
               const channel = match[2]; //  Extrae solo el número, sin "CH"
 
               // Llamada a la API para obtener más detalles del Timer
               timerInfo = await fetchTimerInfo(timer, channel);
             }
+          }
+          if (fieldKey==="led2"){
+            handleLedStateChange(field);
           }
 
           return {
@@ -86,15 +101,7 @@ const SelectedPins: React.FC<FieldsData> = ({ fields }) => {
                     <><strong>Alternate Function:</strong> {field.alternateFunction} <br /></>
                   )}
 
-                  {field.timerInfo && (
-                    <div>
-                      <strong>Timer Info:</strong>
-                      <p>Timer: {field.timerInfo.timer}</p>
-                      <p>Channel: {field.timerInfo.channel}</p>
-                      <p>ARR: {field.timerInfo.ARR}</p>
-                      <p>PSC: {field.timerInfo.PSC}</p>
-                    </div>
-                  )}
+                  {field.timerInfo &&  <TimerView timerInfo={field.timerInfo} />}
 
                   {field.data !== undefined && !field.alternateFunction && (
                     <div>

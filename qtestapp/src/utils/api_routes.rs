@@ -3,7 +3,7 @@ use tracing:: error;
 use std::sync::Arc;
 use tokio::sync::Mutex;
 
-use qtest::session::Session;
+use qtest::parser::Parser;
 use qtest::socket::tcp::SocketTcp;
 
 use qtest_stm32f4nucleo::Peripheral;
@@ -88,19 +88,22 @@ pub fn get_timer_info(
                 if let Some(timer) = periferico.get_timer(&timer_name) {
                     let psc_result = timer.psc().get_prescaler(&mut p).await;
                     let arr_result = timer.arr().get_auto_reload(&mut p).await;
+                    let dc_result = timer.get_duty_cycle(&mut p, channel).await;
+                    
 
-                    match (psc_result, arr_result) {
-                        (Ok(psc), Ok(arr)) => {
+                    match (psc_result, arr_result, dc_result) {
+                        (Ok(psc), Ok(arr), Ok(dc) ) => {
                             let response = json!({
-                                "timer": timer_name, // 🔥 Ahora `timer_name` es un `String`
+                                "timer": timer_name, // Ahora `timer_name` es un `String`
                                 "channel": channel,
                                 "ARR": arr,
-                                "PSC": psc
+                                "PSC": psc,
+                                "DC": dc, 
                             });
                             Ok(warp::reply::json(&response))
                         }
                         _ => {
-                            error!("Error al leer los valores del Timer {:?}", timer_name); // 🔥 Usa {:?} para Debug
+                            error!("Error al leer los valores del Timer {:?}", timer_name); //  Usa {:?} para Debug
                             Err(warp::reject::custom(CustomError))
                         }
                     }

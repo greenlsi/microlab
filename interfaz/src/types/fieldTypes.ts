@@ -29,7 +29,7 @@ export interface AlternateTable {
 
 
 export interface BoardProps {
-    ledState: boolean;
+    ledState: Field;
     changeButtonState: () => void;
     modifyFields: (id: string) => void;
     fieldsData: FieldsData;
@@ -41,6 +41,7 @@ export interface TimerInfo {
     channel: number;  // 🔹 Canal del Timer (ejemplo: 1, 2, 3, 4)
     ARR: number;      // 🔹 Auto-reload register (máximo valor del contador)
     PSC: number;      // 🔹 Prescaler (divisor de la frecuencia)
+    DC?: number;       // 🔹 Duty cycle (ciclo de trabajo)
   }
 
 export interface ToggleDescriptionProps {
@@ -51,4 +52,13 @@ export interface ToggleDescriptionProps {
 export interface WebSocketComponentProps {
     onMessage?: (message: any) => void;
     fieldsData: Record<string, any>;
+}
+
+export interface TimerProps {
+    timerInfo: TimerInfo | null;
+}
+
+export interface LedState{
+    led: boolean;
+    dc: number;
 }
