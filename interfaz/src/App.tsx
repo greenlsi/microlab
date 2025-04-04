@@ -86,6 +86,7 @@ function App() {
     };
 
     const handleLedStateChange = (field: Field) => {
+        console.log("Nuevo ledState:", field);
         setLedState(field);
       };
 

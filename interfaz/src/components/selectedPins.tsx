@@ -58,7 +58,10 @@ const SelectedPins: React.FC<SelectedPinsProps> = ({ fields, handleLedStateChang
             }
           }
           if (fieldKey==="led2"){
-            handleLedStateChange(field);
+            handleLedStateChange({
+              ...field,
+              alternateFunction,
+              timerInfo, });
           }
 
           return {

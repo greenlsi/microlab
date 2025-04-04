@@ -59,48 +59,59 @@ const Board: React.FC<BoardProps> = ({ ledState, changeButtonState, modifyFields
     const prevLedState = usePrevious(ledState);
 
 
-
     //Controla el estado del LED (si esta encendido o apagado y lo refleja en el SVG)
     useEffect(() => {
-        console.log("LED State: ");
         if (!_.isEqual(prevLedState, ledState)) {
-            console.log("LED State no es igual a prevLedState");
-            // //FALLO!!!! EL LED SOLO DEBE DE HACER LA ANIMACIÓN SI CAMBIA DE ESTADO, NO SIEMPRE QUE RECIBA DATOS
+            console.log("LED State changed:", ledState);
             const svg = d3.select(svgRef.current);
             const led2light = svg.select("#led2light");
-            const glow = svg.select("#glow"); // Seleccionar el halo (glow)
-
-            const isAltFunc = ledState?.mode === "Alternate Function";
-            const dc = ledState?.timerInfo?.DC;
-            if (isAltFunc && dc !== undefined) {
-
-                console.log("Tiene DC: ", dc);
-                // Mapea el duty cycle [0, 100] a opacidad o brillo [0.1, 1]
-                const brightness = Math.max(0.1, Math.min(dc / 100, 1));
-                console.log("Brillo: ", brightness);
-                glow.transition()
-                    .duration(100)
-                    .attr("r", 12 + brightness * 10) // Radio según brillo
-                    .style("opacity", 0.2 + brightness * 0.6); // Opacidad variable
-
-                // Puedes usar un color interpolado si prefieres: amarillo ↔ verde
-                const color = d3.interpolateHcl("#bcff00", "#439370")(brightness);
-
-                led2light.transition()
-                    .duration(300)
-                    .attr("fill", color);
-            } else {
-                if (ledState.data) {
-                    // Si el LED está encendido, encender el halo
+            const glow = svg.select("#glow");
+    
+            const mode = ledState?.mode;
+            const timerInfo = ledState?.timerInfo;
+    
+            if (mode === "Alternate Function" && timerInfo) {
+                // 🔥 Buscar el canal seleccionado en timerInfo
+                const selectedChannel = timerInfo.channels.find((ch: any) => ch.channel === timerInfo.channel);
+    
+                if (selectedChannel && selectedChannel.enabled && selectedChannel.mode.includes("PWM")) {
+                    const dc = selectedChannel.duty_cycle;
+    
+                    if (dc !== null && dc !== undefined) {
+                        // PWM activo, animar brillo
+                        const brightness = Math.max(0.1, Math.min(dc / 100, 1));
+    
+                        glow.transition()
+                            .duration(100)
+                            .attr("r", 12 + brightness * 10)
+                            .style("opacity", 0.2 + brightness * 0.6);
+    
+                        const color = d3.interpolateHcl("#bcff00", "#439370")(brightness);
+    
+                        led2light.transition()
+                            .duration(300)
+                            .attr("fill", color);
+    
+                        return; // 🎯 Ya hemos animado con PWM, no seguimos
+                    }
+                }
+                // Si no hay PWM activo -> apagar LED
+                apagarLed(svg);
+            } 
+            else if (mode === "Output") {
+                if (ledState?.data) {
                     encenderLed(svg);
-
                 } else {
-                    // Si el LED está apagado, apagar el halo
                     apagarLed(svg);
                 }
+            } 
+            else if (mode === "Input") {
+                // Siempre apagado
+                apagarLed(svg);
             }
         }
     }, [ledState]);
+    
 
     //selecciona todos los elementos SVG con la clase .clickable y les asigna eventos de interacción (mouseover, mouseout, click) 
     // para cambiar su apariencia al pasar el ratón o hacer clic, además de actualizar su estilo según si están en fieldsData.fields, 
@@ -146,34 +157,6 @@ const Board: React.FC<BoardProps> = ({ ledState, changeButtonState, modifyFields
 
     }, [fieldsData, modifyFields]);
 
-
-
-    //Mantiene coloreados los pines seleccionados
-    // useEffect(() => {
-    //     const svg = d3.select(svgRef.current);
-    //     svg.selectAll<SVGElement, unknown>(".clickable")
-    //         .each(function () {
-    //             const id = d3.select(this).attr("id") || "";
-    //             d3.select(this)
-    //                 .attr("stroke", selected.includes(id) ? "red" : "none")
-    //                 .attr("strokeWidth", selected.includes(id) ? 2 : 0);
-    //         });
-    // }, [selected]);
-
-    // //Mantiene coloreados los pines seleccionados
-    // useEffect(() => {
-    //     const svg = d3.select(svgRef.current);
-
-    //     svg.selectAll<SVGElement, unknown>(".clickable")
-    //         .each(function () {
-    //             const id = d3.select(this).attr("id") || "";
-    //             const isSelected = id in fieldsData.fields; // Verificamos si el id existe en fieldsData.fields
-
-    //             d3.select(this)
-    //                 .attr("stroke", isSelected ? "red" : "none")
-    //                 .attr("strokeWidth", isSelected ? 2 : 0);
-    //         });
-    // }, [fieldsData]);
 
 
     //Controla el estado de los botones (si están presionados o no y si se les da click o se pasa el ratón por encima)

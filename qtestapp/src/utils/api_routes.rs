@@ -74,41 +74,50 @@ pub fn get_timer_info(
     parser: Arc<Mutex<Parser<SocketTcp>>>,
     periferico: Peripheral,
 ) -> impl Filter<Extract = impl Reply, Error = Rejection> + Clone {
-    warp::path!("timer_info" / String / usize) // 🔥 Se corrige la estructura de la ruta
+    warp::path!("timer_info" / String / usize)
         .and(warp::any().map(move || Arc::clone(&parser)))
         .and(warp::any().map(move || periferico.clone()))
         .and_then(
             |timer_name: String,
-             channel: usize,
+             selected_channel: usize,
              parser: Arc<Mutex<Parser<SocketTcp>>>,
              periferico: Peripheral| async move {
                 let mut p = parser.lock().await;
 
-                // 🔹 Obtener el Timer
                 if let Some(timer) = periferico.get_timer(&timer_name) {
-                    let psc_result = timer.psc().get_prescaler(&mut p).await;
-                    let arr_result = timer.arr().get_auto_reload(&mut p).await;
-                    let dc_result = timer.get_duty_cycle(&mut p, channel).await;
-                    
+                    // 🔥 Leemos diagnosis completa
+                    let psc_result = timer.psc().read_register(&mut p).await;
+                    let arr_result = timer.arr().read_register(&mut p).await;
+                    let diagnosis_result = timer.full_channel_diagnosis(&mut p).await;
 
-                    match (psc_result, arr_result, dc_result) {
-                        (Ok(psc), Ok(arr), Ok(dc) ) => {
+                    match (psc_result, arr_result, diagnosis_result) {
+                        (Ok(psc), Ok(arr), Ok(diagnosis)) => {
+                            // 🔥 Construimos respuesta JSON limpia
                             let response = json!({
-                                "timer": timer_name, // Ahora `timer_name` es un `String`
-                                "channel": channel,
-                                "ARR": arr,
-                                "PSC": psc,
-                                "DC": dc, 
+                                "timer": timer_name,
+                                "channel": selected_channel,
+                                "prescaler": psc,
+                                "auto_reload": arr,
+                                "channels": diagnosis.into_iter().map(|ch| {
+                                    json!({
+                                        "channel": ch.channel,
+                                        "enabled": ch.enabled,
+                                        "mode": ch.mode,
+                                        "polarity": ch.polarity,
+                                        "duty_cycle": ch.duty_cycle,
+                                        "frequency": ch.frequency
+                                    })
+                                }).collect::<Vec<_>>()
                             });
+
                             Ok(warp::reply::json(&response))
                         }
                         _ => {
-                            error!("Error al leer los valores del Timer {:?}", timer_name); //  Usa {:?} para Debug
+                            error!("Error al leer información del Timer {:?}", timer_name);
                             Err(warp::reject::custom(CustomError))
                         }
                     }
                 } else {
-                    // 🔹 Si el Timer no existe
                     error!("Timer no encontrado: {:?}", timer_name);
                     Err(warp::reject::custom(CustomError))
                 }

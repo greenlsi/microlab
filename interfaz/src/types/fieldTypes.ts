@@ -36,13 +36,8 @@ export interface BoardProps {
 }
 
 
-export interface TimerInfo {
-    timer: string;    // 🔹 Nombre del Timer (ejemplo: "TIM1", "TIM2")
-    channel: number;  // 🔹 Canal del Timer (ejemplo: 1, 2, 3, 4)
-    ARR: number;      // 🔹 Auto-reload register (máximo valor del contador)
-    PSC: number;      // 🔹 Prescaler (divisor de la frecuencia)
-    DC?: number;       // 🔹 Duty cycle (ciclo de trabajo)
-  }
+
+
 
 export interface ToggleDescriptionProps {
     description: string;
@@ -52,6 +47,23 @@ export interface ToggleDescriptionProps {
 export interface WebSocketComponentProps {
     onMessage?: (message: any) => void;
     fieldsData: Record<string, any>;
+}
+
+
+export interface TimerInfo {
+    timer: string;
+    channel: number;
+    prescaler: number;
+    auto_reload: number;
+    channels: {
+        channel: number;
+        enabled: boolean;
+        mode: string;
+        polarity: string;
+        duty_cycle: number | null;
+        frequency: number | null;
+    }[];
+    [key: string]: any; // Permite atributos adicionales
 }
 
 export interface TimerProps {
