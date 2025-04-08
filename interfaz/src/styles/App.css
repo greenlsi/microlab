@@ -33,7 +33,7 @@ body,
 /* 🔹 Estilo para la Columna Derecha */
 .resultado {
   display: grid;
-  grid-template-rows: 30px auto;
+  grid-template-rows: 30px 50px auto;
   /* 80px para WebSocket y el resto para SelectedPins */
   gap: 10px;
   width: 93%;

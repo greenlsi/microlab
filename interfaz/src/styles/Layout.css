@@ -22,7 +22,7 @@
 /* 🔹 MAIN (Solo ocupa el espacio disponible entre Header y Footer) */
 .main-content {
 	display: grid;
-	grid-template-columns: 3fr 2fr; /* 🔥 Board ocupa 3 partes, resultado 2 */
+	grid-template-columns: 2fr 3fr; /*  Board ocupa 2 partes, resultado 3 */
 	padding: 10px;
 	width: 100%;
 	height: 100%;

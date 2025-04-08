@@ -5,6 +5,7 @@ import Board from './components/Board.tsx';
 import importedMapData from './assets/Map.json';
 import initialFieldsData from './assets/Fields.json';
 import SelectedPins from './components/selectedPins.tsx';
+import PinSearcher from './components/PinSearcher.tsx';
 import Layout from "./components/Layout";
 import { Field, FieldsData, MapData, LedState  } from './types/fieldTypes';
 
@@ -101,7 +102,7 @@ function App() {
                 <div className="resultado">
                     
                     <WebSocketComponent onMessage={handleWebSocketMessage} fieldsData={fieldsData} />
-                    
+                    <PinSearcher modifyFields={modifyFields} />
                     {resultado && <SelectedPins fields={resultado} handleLedStateChange={handleLedStateChange}/>}
                
                 </div>
