@@ -1,0 +1,17 @@
+# Carpetas de desarrollo
+.git
+.vscode
+node_modules/
+
+# Archivos de configuración y entorno local
+.env
+*.log
+npm-debug.log
+
+# Archivos de salida si usas build (aunque en dev no se usan)
+dist/
+build/
+
+# Sistema operativo
+.DS_Store
+Thumbs.db

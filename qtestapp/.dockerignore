@@ -1,0 +1,21 @@
+# Archivos y carpetas que no deben copiarse al contenedor
+
+# Repositorio Git
+.git
+.gitignore
+
+# Entorno local / editor
+.vscode/
+.idea/
+*.swp
+
+# Carpeta de compilación (¡grande e innecesaria!)
+target/
+
+# Archivos temporales o de sistema operativo
+*.log
+.DS_Store
+Thumbs.db
+
+# Archivos sensibles o de entorno
+.env

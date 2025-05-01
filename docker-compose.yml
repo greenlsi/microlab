@@ -5,14 +5,10 @@ services:
       context: ./interfaz  # Ruta de tu proyecto React
     ports:
       - "5173:5173"  # Puerto de la interfaz React
-      
     volumes:
       - ./interfaz:/app
-    # environment:
-    #   - VITE_APP_API_URL=http://localhost:8080
-    #   - VITE_APP_WS_URL=ws://localhost:8081
     networks:
-      - mynetwork  # Conexión a la red personalizada
+      - lab_virtual_net  # 🔵 Red corregida
 
   rust-server:
     build:
@@ -25,8 +21,8 @@ services:
       - QEMU_URL=0.0.0.0:3000
       - WS_URL=0.0.0.0:8081
     networks:
-      - mynetwork  # Conexión a la misma red personalizada
+      - lab_virtual_net  # 🔵 Red corregida
 
 networks:
-  mynetwork:  # Red personalizada para asegurar la comunicación entre servicios
+  lab_virtual_net:  # 🔵 Red corregida
     driver: bridge

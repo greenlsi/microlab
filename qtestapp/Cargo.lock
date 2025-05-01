@@ -888,6 +888,7 @@ dependencies = [
 [[package]]
 name = "qtest"
 version = "0.1.0"
+source = "git+https://github.com/greenlsi/qtest.git?branch=submodules#3249fbf80a75f1a0e449c046ed3998e1b560b5a4"
 dependencies = [
  "base64 0.22.1",
  "tokio",
@@ -896,6 +897,7 @@ dependencies = [
 [[package]]
 name = "qtest-stm32f4nucleo"
 version = "0.1.0"
+source = "git+https://github.com/greenlsi/qtest.git?branch=submodules#3249fbf80a75f1a0e449c046ed3998e1b560b5a4"
 dependencies = [
  "base64 0.22.1",
  "qtest",

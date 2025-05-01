@@ -4,10 +4,10 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-qtest-stm32f4nucleo = { path = "../../qtest/qtest-stm32f4nucleo" }
-qtest = { path = "../../qtest/qtest" }
-#qtest-stm32f4nucleo = { git = "https://github.com/greenlsi/qtest.git", branch = "submodules" }
-#qtest = { git = "https://github.com/greenlsi/qtest.git", branch = "submodules" }
+#qtest-stm32f4nucleo = { path = "../../qtest/qtest-stm32f4nucleo" }
+#qtest = { path = "../../qtest/qtest" }
+qtest-stm32f4nucleo = { git = "https://github.com/greenlsi/qtest.git", branch = "submodules" }
+qtest = { git = "https://github.com/greenlsi/qtest.git", branch = "submodules" }
 tokio = { version = "1", features = ["full"] }
 base64 = "0.22"
 warp = "0.3.7"
