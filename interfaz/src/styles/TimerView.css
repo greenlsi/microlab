@@ -1,5 +1,27 @@
 /* TimerView.css */
 .timer-container {
+	text-align: center;
+	margin: 8px auto;
+}
+.toggle-timer-button {
+	width: 100%;
+	text-align: left;
+	color: #16a085;
+	background: none;
+	border: none;
+	cursor: pointer;
+	margin: 0 0 10px 0;
+	font-size: 1rem;
+	font-weight: bold;
+	padding: 0;
+	transition: color 0.3s ease;
+}
+
+.toggle-timer-button:hover {
+	color: #0f8488;
+}
+
+.timer-subcontainer {
 	background: linear-gradient(135deg, #2c5034, #1a2f21); /* Gradiente suave */
 	color: #ecf0f1; /* Gris claro */
 	border-radius: 12px;
@@ -12,11 +34,11 @@
 	transition: transform 0.2s ease-in-out;
 }
 
-.timer-container:hover {
+.timer-subcontainer:hover {
 	transform: scale(1.02); /* Efecto sutil al pasar el ratón */
 }
 
-.timer-container h2 {
+.timer-subcontainer h2 {
 	margin-top: 0;
 	color: #1abc9c; /* Verde claro */
 	font-size: 1.5rem;
@@ -25,7 +47,7 @@
 	margin-bottom: 12px;
 }
 
-.timer-container p {
+.timer-subcontainer p {
 	margin: 6px 0;
 	font-size: 1rem;
 	line-height: 1.4;
