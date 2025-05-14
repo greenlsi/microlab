@@ -64,6 +64,11 @@ const PinSearcher: React.FC<PinSearcherProps> = ({ modifyFields }) => {
         type="text"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            handleSearch();
+          }
+        }}
         placeholder="Buscar pin (ej: PA7, RESET, VDD...)"
       />
       <button onClick={handleSearch}>Buscar</button>

@@ -10,8 +10,9 @@ import TimerView from "./TimerView";
 interface SelectedPinsProps {
   fields: Record<string, Field>;
   handleLedStateChange: (field: Field) => void;
+  modifyFields: (id: string) => void;
 }
-const SelectedPins: React.FC<SelectedPinsProps> = ({ fields, handleLedStateChange }) => {
+const SelectedPins: React.FC<SelectedPinsProps> = ({ fields, handleLedStateChange, modifyFields }) => {
 
   //lógica para preparar toda la información fields y mostrarla en la interfaz:
 
@@ -86,12 +87,21 @@ const SelectedPins: React.FC<SelectedPinsProps> = ({ fields, handleLedStateChang
 
       {/* 🔹 Renderizado final sin cálculos */}
       <div className="field-grid">
-        {processedFields.map((field, index) => (
+        {processedFields.map((field, index) => (      
           <div key={index} className="field-card">
+            <button
+                      className="close-button"
+                      onClick={() => modifyFields(field.key)}
+                      title="Eliminar pin"
+                    >
+                      ✖
+                  </button>
             <div className="field-body">
               <div className="pins-list">
                 <div className="pin-item">
-                  <h3>{field.key.toUpperCase()} {field.alias ? `(${field.alias})` : ""}</h3>
+                  <div className="card-header">
+                    <h3>{field.key.toUpperCase()} {field.alias ? `(${field.alias})` : ""}</h3>
+                  </div>
 
                   {/* 🔹 Mostrar los datos procesados */}
                   {field.port && <><strong>Port:</strong> {field.port} <br /></>}

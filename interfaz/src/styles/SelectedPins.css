@@ -25,17 +25,45 @@
 }
 
 
+
+
+
+
+
+
 /* 🔹 Estilo de cada tarjeta */
 .field-card {
-  background-color: white;
+  position: relative;
+  background-color: var(--card-bg);
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 6px var(--card-shadow);
   padding: 12px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
+  color: var(--text-color);
+}
+.close-button {
+  position: absolute;
+  top: 10px; 
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+   color: var(--close-button-color);
+  padding: 0;
+}
+
+.close-button:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.close-button:hover {
+   color: var(--close-button-hover);
 }
 
 .status {
@@ -44,9 +72,12 @@
 }
 
 .status.high {
-  color: #28a745; /* Verde para estado Alto */
+  color:  var(--status-high);; /* Verde para estado Alto */
 }
 
 .status.low {
-  color: #dc3545; /* Rojo para estado Bajo */
+  color: var(--status-low); /* Rojo para estado Bajo */
 }
+
+
+

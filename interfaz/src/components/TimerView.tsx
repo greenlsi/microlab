@@ -14,12 +14,12 @@ const TimerView: React.FC<TimerProps> = ({ timerInfo }) => {
 
     return (
         <div className="timer-container">
-             <button 
-                className="toggle-timer-button" 
+             <p 
+                className="toggle-timer-text" 
                 onClick={() => setShowTimerInfo(!showTimerInfo)}
             >
                 {showTimerInfo ? "Ocultar info del Timer" : "Ver info del Timer"}
-            </button>
+            </p>
 
             {showTimerInfo && (
                  <div className="timer-subcontainer">

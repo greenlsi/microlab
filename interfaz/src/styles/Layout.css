@@ -1,15 +1,57 @@
 /* 🔹 Contenedor principal (usa Grid para asegurar el espacio exacto) */
+
+/* 🎨 Variables de color globales */
+:root {
+	--bg-color: #ffffff;
+	--maincontent-bg: #ffffff;
+	--text-color: #000000;
+	--card-bg: #ffffff;
+	--card-shadow: rgba(0, 0, 0, 0.1);
+	--close-button-color: rgb(83, 74, 74);
+	--close-button-hover: rgb(158, 46, 46);
+	--status-high: #28a745;
+	--status-low: #dc3545;
+
+	--header-bg: linear-gradient(135deg, #0091AD, #5DBB63);
+	--footer-bg: linear-gradient(135deg, #0091AD, #5DBB63);
+	--link-color: #01454b;
+	--link-hover: #001aff;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--bg-color: #1e1e1e;
+		--maincontent-bg: ##505050;
+		--text-color: #f5f5f5;
+		--card-bg: #2a2a2a;
+		--card-shadow: rgba(0, 0, 0, 0.5);
+		--close-button-color: #ccc;
+		--close-button-hover: #ff4d4d;
+		--status-high: #66ff66;
+		--status-low: #ff6b6b;
+
+		--header-bg: linear-gradient(135deg, #005d70, #367c3a);
+		--footer-bg: linear-gradient(135deg, #005d70, #367c3a);
+		--link-color: #aad2d8;
+		--link-hover: #4fc3f7;
+	}
+}
+
+
 .layout {
 	display: grid;
 	grid-template-rows: 60px auto 40px; /* 🔥 Fila fija para Header, Footer y el contenido en el medio */
 	height: 100vh; /* Toda la pantalla */
 	width: 100vw;
 	overflow: hidden;
+	background-color: var(--bg-color);
+	color: var(--text-color);
+	background-color: var(--maincontent-bg);
 }
 
 /* 🔹 HEADER */
 .header {
-	background: linear-gradient(135deg, #0091AD, #5DBB63);
+	background: var(--header-bg);
 	color: white;
 	display: flex;
 	justify-content: space-between;
@@ -28,18 +70,19 @@
 	height: 100%;
 	overflow: hidden;
 	gap: 10px;
+	background-color: var(--maincontent-bg);
 }
 
 /* 🔹 FOOTER */
 .footer {
-	background: linear-gradient(135deg, #0091AD, #5DBB63);
+	background: var(--footer-bg);
+	color: white;
 	height: 45px; /* 🔥 Fijo */
 	width: 100%;
 	text-align: center;
 	padding: 5px 10px; /* 🔥 Menos padding */
 	position: fixed;
 	bottom: 0;
-	color: white;
 	font-size: 0.75rem; /* 🔥 Reducimos el tamaño de la fuente */
 	display: flex;
 	flex-direction: column;
@@ -70,18 +113,26 @@
 
 /* 🔹 Links más compactos */
 .footer .links a {
-	color: #01454b;
+	color: var(--link-color);
+	/* color: #01454b; */
 	text-decoration: none;
 	margin: 0 6px; /* 🔥 Menos espacio entre links */
 	transition: color 0.3s ease;
 }
 
 .footer .links a:hover {
-	color: #001aff;
+	color:  var(--link-hover);
 }
 
 /* 🔹 Ajustamos el texto del autor */
 .footer .author p {
 	font-size: 0.7rem; /* 🔥 Más pequeño */
 	margin: 3px 0; /* 🔥 Menos espacio vertical */
+}
+
+body {
+	background-color: var(--bg-color);
+	color: var(--text-color);
+	margin: 0;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }

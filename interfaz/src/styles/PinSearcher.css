@@ -1,3 +1,29 @@
+:root {
+	--search-border: #ccc;
+	--search-focus: #4a90e2;
+	--search-shadow: rgba(74, 144, 226, 0.5);
+	--btn-bg: #4a90e2;
+	--btn-hover: #357ab8;
+	--btn-active: #2d6391;
+	--btn-text: white;
+	--input-bg: white;
+	--input-text: black;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--search-border: #555;
+		--search-focus: #77b2ff;
+		--search-shadow: rgba(119, 178, 255, 0.5);
+		--btn-bg: #5a9eff;
+		--btn-hover: #4180c1;
+		--btn-active: #2f5c8e;
+		--btn-text: white;
+		--input-bg: #2c2c2c;
+		--input-text: white;
+	}
+}
+
 .search-container {
 	display: flex;
 	flex-direction: row;
@@ -11,21 +37,23 @@
 .search-container input {
 	width: 300px;
 	padding: 0.7rem 1rem;
-	border: 2px solid #ccc;
+	border: 2px solid var(--search-border);
 	border-radius: 8px;
 	font-size: 1rem;
-	transition: border-color 0.3s, box-shadow 0.3s;
+	background-color: var(--input-bg);
+	color: var(--input-text);
+	transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s, color 0.3s;
 }
 
 .search-container input:focus {
-	border-color: #4a90e2;
-	box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+	border-color: var(--search-focus);
+	box-shadow: 0 0 5px var(--search-shadow);
 	outline: none;
 }
 
 .search-container button {
-	background-color: #4a90e2;
-	color: white;
+	background-color: var(--btn-bg);
+	color: var(--btn-text);
 	border: none;
 	border-radius: 5px;
 	font-size: 1rem;
@@ -34,11 +62,11 @@
 }
 
 .search-container button:hover {
-	background-color: #357ab8;
+	background-color: var(--btn-hover);
 	transform: translateY(-2px);
 }
 
 .search-container button:active {
-	background-color: #2d6391;
+	background-color: var(--btn-active);
 	transform: translateY(0);
 }

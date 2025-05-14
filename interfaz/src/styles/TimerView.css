@@ -1,33 +1,55 @@
-/* TimerView.css */
+:root {
+	--timer-bg: linear-gradient(135deg, #2c5034, #1a2f21);
+	--timer-border: #16a085;
+	--timer-shadow: rgba(0, 0, 0, 0.25);
+	--timer-text: #ecf0f1;
+	--timer-heading: #1abc9c;
+	--toggle-timer-text: #16a085;
+	--toggle-timer-hover: #0f8488;
+}
+
+@media (prefers-color-scheme: light) {
+	:root {
+		--timer-bg: linear-gradient(135deg, #f0f9f7, #d0f0e8);
+		--timer-border: #16a085;
+		--timer-shadow: rgba(0, 0, 0, 0.1);
+		--timer-text: #1a2f21;
+		--timer-heading: #16a085;
+		--toggle-timer-text: #16827b;
+		--toggle-timer-hover: #10645f;
+	}
+}
+
 .timer-container {
 	text-align: center;
 	margin: 8px auto;
 }
-.toggle-timer-button {
+
+.toggle-timer-text {
 	width: 100%;
+	display: block;
 	text-align: left;
-	color: #16a085;
+	color: var(--toggle-timer-text);
 	background: none;
 	border: none;
 	cursor: pointer;
-	margin: 0 0 10px 0;
+	margin-bottom: 5px;
 	font-size: 1rem;
-	font-weight: bold;
 	padding: 0;
 	transition: color 0.3s ease;
 }
 
 .toggle-timer-button:hover {
-	color: #0f8488;
+	color: var(--toggle-timer-hover);
 }
 
 .timer-subcontainer {
-	background: linear-gradient(135deg, #2c5034, #1a2f21); /* Gradiente suave */
-	color: #ecf0f1; /* Gris claro */
+	background: var(--timer-bg);
+	color: var(--timer-text);
 	border-radius: 12px;
 	padding: 16px 24px;
-	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-	border: 1px solid #16a085; /* Verde elegante */
+	box-shadow: 0 8px 20px var(--timer-shadow);
+	border: 1px solid var(--timer-border);
 	max-width: 400px;
 	margin: 20px auto;
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -35,14 +57,14 @@
 }
 
 .timer-subcontainer:hover {
-	transform: scale(1.02); /* Efecto sutil al pasar el ratón */
+	transform: scale(1.02);
 }
 
 .timer-subcontainer h2 {
 	margin-top: 0;
-	color: #1abc9c; /* Verde claro */
+	color: var(--timer-heading);
 	font-size: 1.5rem;
-	border-bottom: 1px solid #1abc9c;
+	border-bottom: 1px solid var(--timer-heading);
 	padding-bottom: 4px;
 	margin-bottom: 12px;
 }
@@ -52,4 +74,3 @@
 	font-size: 1rem;
 	line-height: 1.4;
 }
-

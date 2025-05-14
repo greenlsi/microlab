@@ -103,7 +103,7 @@ function App() {
                     
                     <WebSocketComponent onMessage={handleWebSocketMessage} fieldsData={fieldsData} />
                     <PinSearcher modifyFields={modifyFields} />
-                    {resultado && <SelectedPins fields={resultado} handleLedStateChange={handleLedStateChange}/>}
+                    {resultado && <SelectedPins fields={resultado} handleLedStateChange={handleLedStateChange} modifyFields={modifyFields}/>}
                
                 </div>
         </Layout>

@@ -5,8 +5,6 @@ services:
       context: ./interfaz  # Ruta de tu proyecto React
     ports:
       - "5173:5173"  # Puerto de la interfaz React
-    volumes:
-      - ./interfaz:/app
     networks:
       - lab_virtual_net  # 🔵 Red corregida
 
