@@ -32,10 +32,10 @@ const encenderLed = (svg: SvgSelection): void => {
 
     led2light.transition()
         .duration(100)
-        .attr("fill", "#ffff00")
+        .attr("fill", "#b3ff00")
         .transition()
         .duration(300)
-        .attr("fill", "#54a7ff")
+        .attr("fill", "#46e0af")
         .transition()
         .duration(200)
         .attr("fill", "#00ff78");
@@ -71,7 +71,7 @@ const Board: React.FC<BoardProps> = ({ ledState, changeButtonState, modifyFields
             const timerInfo = ledState?.timerInfo;
     
             if (mode === "Alternate Function" && timerInfo) {
-                // 🔥 Buscar el canal seleccionado en timerInfo
+                // Buscar el canal seleccionado en timerInfo
                 const selectedChannel = timerInfo.channels.find((ch: any) => ch.channel === timerInfo.channel);
     
                 if (selectedChannel && selectedChannel.enabled && selectedChannel.mode.includes("PWM")) {
@@ -92,7 +92,7 @@ const Board: React.FC<BoardProps> = ({ ledState, changeButtonState, modifyFields
                             .duration(300)
                             .attr("fill", color);
     
-                        return; // 🎯 Ya hemos animado con PWM, no seguimos
+                        return; // 
                     }
                 }
                 // Si no hay PWM activo -> apagar LED

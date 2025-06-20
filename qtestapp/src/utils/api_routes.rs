@@ -85,14 +85,14 @@ pub fn get_timer_info(
                 let mut p = parser.lock().await;
 
                 if let Some(timer) = periferico.get_timer(&timer_name) {
-                    // 🔥 Leemos diagnosis completa
+                    // Leemos diagnosis completa
                     let psc_result = timer.psc().read_register(&mut p).await;
                     let arr_result = timer.arr().read_register(&mut p).await;
                     let diagnosis_result = timer.full_channel_diagnosis(&mut p).await;
 
                     match (psc_result, arr_result, diagnosis_result) {
                         (Ok(psc), Ok(arr), Ok(diagnosis)) => {
-                            // 🔥 Construimos respuesta JSON limpia
+                            // Construimos respuesta JSON limpia
                             let response = json!({
                                 "timer": timer_name,
                                 "channel": selected_channel,

@@ -14,7 +14,10 @@ interface SelectedPinsProps {
 }
 const SelectedPins: React.FC<SelectedPinsProps> = ({ fields, handleLedStateChange, modifyFields }) => {
 
+
+
   //lógica para preparar toda la información fields y mostrarla en la interfaz:
+  const nonRemovablePins = ["led2", "boton"]; // Pines que no se pueden eliminar
 
   const [processedFields, setProcessedFields] = useState<Field[]>([]);
   function getAlternateFunction(field: Field, table: AlternateTable): string | undefined {
@@ -83,19 +86,21 @@ const SelectedPins: React.FC<SelectedPinsProps> = ({ fields, handleLedStateChang
 
   return (
     <div className="selected-pins-container">
-      <h3 className="title">PINS SELECCIONADOS</h3>
+      <h3 className="title">SELECTED PINS</h3>
 
       {/* 🔹 Renderizado final sin cálculos */}
       <div className="field-grid">
         {processedFields.map((field, index) => (      
           <div key={index} className="field-card">
-            <button
-                      className="close-button"
-                      onClick={() => modifyFields(field.key)}
-                      title="Eliminar pin"
-                    >
-                      ✖
-                  </button>
+            {!nonRemovablePins.includes(field.key) && (
+              <button
+                className="close-button"
+                onClick={() => modifyFields(field.key)}
+                title="Eliminar pin"
+              >
+                ✖
+              </button>
+            )}
             <div className="field-body">
               <div className="pins-list">
                 <div className="pin-item">
@@ -118,9 +123,9 @@ const SelectedPins: React.FC<SelectedPinsProps> = ({ fields, handleLedStateChang
 
                   {field.data !== undefined && !field.alternateFunction && (
                     <div>
-                      <strong>Estado:</strong>
+                      <strong>State:</strong>
                       <span className={`status ${field.data ? "high" : "low"}`}>
-                        {field.data ? "Alto" : "Bajo"}
+                        {field.data ? "High" : "Low"}
                       </span>
                     </div>
                   )}

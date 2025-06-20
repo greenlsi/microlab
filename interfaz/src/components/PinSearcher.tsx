@@ -69,9 +69,9 @@ const PinSearcher: React.FC<PinSearcherProps> = ({ modifyFields }) => {
             handleSearch();
           }
         }}
-        placeholder="Buscar pin (ej: PA7, RESET, VDD...)"
+        placeholder="Search pin (e.g., PA7, RESET, VDD...)"
       />
-      <button onClick={handleSearch}>Buscar</button>
+      <button onClick={handleSearch}>Search</button>
     </div>
   );
 };
