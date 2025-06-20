@@ -12,7 +12,7 @@ const ToggleDescription: React.FC<ToggleDescriptionProps> = ({ description }) =>
         className="toggle-text" 
         onClick={() => setIsOpen(!isOpen)}
       >
-        {isOpen ? " Ocultar descripción" : "Ver descripción"}
+        {isOpen ? " Hide description" : "Show description"}
       </p>
 
       {isOpen && (

@@ -17,7 +17,7 @@ const SelectedPins: React.FC<SelectedPinsProps> = ({ fields, handleLedStateChang
 
 
   //lógica para preparar toda la información fields y mostrarla en la interfaz:
-  const nonRemovablePins = ["led2", "boton"]; // Pines que no se pueden eliminar
+  const nonRemovablePins = ["led2", "user button"]; // Pines que no se pueden eliminar
 
   const [processedFields, setProcessedFields] = useState<Field[]>([]);
   function getAlternateFunction(field: Field, table: AlternateTable): string | undefined {
@@ -96,7 +96,7 @@ const SelectedPins: React.FC<SelectedPinsProps> = ({ fields, handleLedStateChang
               <button
                 className="close-button"
                 onClick={() => modifyFields(field.key)}
-                title="Eliminar pin"
+                title="Remove pin"
               >
                 ✖
               </button>
@@ -125,7 +125,7 @@ const SelectedPins: React.FC<SelectedPinsProps> = ({ fields, handleLedStateChang
                     <div>
                       <strong>State:</strong>
                       <span className={`status ${field.data ? "high" : "low"}`}>
-                        {field.data ? "High" : "Low"}
+                        {field.data ? " High" : " Low"}
                       </span>
                     </div>
                   )}

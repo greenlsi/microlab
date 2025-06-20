@@ -1,4 +1,3 @@
-
 {
     "fields": {
         "led2": {
@@ -6,14 +5,10 @@
             "port": "gpio_a",
             "pin": 5
         },
-        "boton": {
+        "user button": {
             "type": "gpio",
             "port": "gpio_c",
             "pin": 13
         }
     }
 }
-
-
-
-
