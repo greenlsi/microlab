@@ -41,12 +41,12 @@ const SelectedPins: React.FC<SelectedPinsProps> = ({ fields, handleLedStateChang
         Object.keys(fields).map(async (fieldKey) => {
           const field = fields[fieldKey];
 
-          // 🔹 Obtener `alternateFunction` si el modo es "Alternate Function"
+          //  Obtener `alternateFunction` si el modo es "Alternate Function"
 
           const alternateFunction = getAlternateFunction(field, alternateTable);
 
 
-          // 🔹 Si `alternateFunction` es un Timer, obtener más información de la API
+          //  Si `alternateFunction` es un Timer, obtener más información de la API
           let timerInfo = null;
           if (alternateFunction && alternateFunction.startsWith("TIM")) {
 
@@ -76,7 +76,7 @@ const SelectedPins: React.FC<SelectedPinsProps> = ({ fields, handleLedStateChang
           };
         })
       );
-      console.log("newFields:", newFields);
+      //console.log("newFields:", newFields);
       setProcessedFields(newFields);
     };
 

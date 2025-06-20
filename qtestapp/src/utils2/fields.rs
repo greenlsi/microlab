@@ -189,7 +189,7 @@ pub async fn handle_irq_update(
                 error!("Error al serializar el JSON actualizado: {}", e);
                 "{}".to_string()
             });
-            info!(json_str);
+            //info!(json_str);
             if let Err(e) = ws_tx.send(json_str) {
                 error!("Error al enviar el JSON actualizado: {}", e);
             } else {

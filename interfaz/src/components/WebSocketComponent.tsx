@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import useWebSocket from "react-use-websocket";
 import "../styles/Websocket.css";
 import { WebSocketComponentProps } from "../types/fieldTypes";
-import merge from "lodash.merge";
 import { useState } from "react";
 import { FieldsData } from "../types/fieldTypes";
 
@@ -95,7 +94,3 @@ const WebSocketComponent: React.FC<WebSocketComponentProps> = ({ onMessage, fiel
 
 export default WebSocketComponent;
 
-
-//tengo aqui un problema con el tipo de fieldsData, que no se puede asignar a newFieldsData, por lo que he tenido que hacer un cast a FieldsData | null
-//para que no me de error en la asignación de setNewFieldsData(fieldsData) en el useEffect.
-//NO se si es al hacer el merge o que. Pero necesito que newFieldsData se actualice con los datos de fieldsData para que se envíen al servidor y con lo que le llega tmb....?????

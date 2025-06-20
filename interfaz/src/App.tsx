@@ -24,9 +24,9 @@ function App() {
 
     const modifyFields = (id: string) => {
         if (!mapData[id]) {
-            console.error(`ID ${id} no encontrado en mapData.`);
-            console.log("fieldsData:", fieldsData);
-            console.log("mapData:", mapData);
+            //console.error(`ID ${id} no encontrado en mapData.`);
+            //console.log("fieldsData:", fieldsData);
+            //console.log("mapData:", mapData);
             return fieldsData;
         }
 
@@ -39,10 +39,10 @@ function App() {
 
         if (!newFieldsData.fields[id]) {
             newFieldsData.fields[id] = { ...mapData[id] };
-            console.log(`🟢 ID ${id} agregado a fieldsData:`, newFieldsData);
+            //console.log(`🟢 ID ${id} agregado a fieldsData:`, newFieldsData);
         } else {
             delete newFieldsData.fields[id];
-            console.log(`🔴 ID ${id} eliminado de fieldsData:`, newFieldsData);
+           // console.log(`🔴 ID ${id} eliminado de fieldsData:`, newFieldsData);
         }
 
         setFieldsData(newFieldsData);
@@ -51,7 +51,7 @@ function App() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                console.log("API URL:", import.meta.env.VITE_APP_API_URL);
+                //console.log("API URL:", import.meta.env.VITE_APP_API_URL);
                 const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/gpio_c/pulsar_boton/13/${isPressed ? 0 : 1}`, {
                 //const response = await fetch(`http://127.0.0.1:8080/gpio_c/pulsar_boton/13/${isPressed ? 0 : 1}`, {
                   
@@ -61,7 +61,7 @@ function App() {
 
                 if (!response.ok) throw new Error('Failed to set pin state');
                 const data = await response.json();
-                console.log('Data tras pulsar botón:', data);
+                //console.log('Data tras pulsar botón:', data);
             } catch (error) {
                 console.error('Error:', error);
             }
@@ -87,7 +87,7 @@ function App() {
     };
 
     const handleLedStateChange = (field: Field) => {
-        console.log("Nuevo ledState:", field);
+        //console.log("Nuevo ledState:", field);
         setLedState(field);
       };
 

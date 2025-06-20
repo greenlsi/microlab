@@ -16,7 +16,6 @@ use warp::Reply;
 
 // Define una ruta REST con Warp
  // Filtro pulsar_boton que establece la ruta y recibe los parámetros
- // TO DO: Aquí debería quitar lo de despues de create_interruption en un futuro
  pub fn pulsar_boton(
     parser: Arc<Mutex<Parser<SocketTcp>>>,
     periferico: Peripheral,
@@ -50,7 +49,7 @@ use warp::Reply;
         )
 }
 
-// Función set_irq_in que manipula el estado de los pines GPIO
+// Función set_irq_in para crear una interrupción 
 pub async fn create_interruption(
     nombre_gpio: String,
     pin: usize,
@@ -70,6 +69,7 @@ pub async fn create_interruption(
     Ok(())
 }
 
+// Ruta para obtener información del Timer
 pub fn get_timer_info(
     parser: Arc<Mutex<Parser<SocketTcp>>>,
     periferico: Peripheral,

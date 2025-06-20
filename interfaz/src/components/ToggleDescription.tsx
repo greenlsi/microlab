@@ -7,7 +7,7 @@ const ToggleDescription: React.FC<ToggleDescriptionProps> = ({ description }) =>
 
   return (
     <div className="toggle-container">
-      {/* 🔥 Cualquier parte del texto será clickeable */}
+      {/*Cualquier parte del texto será clickeable */}
       <p 
         className="toggle-text" 
         onClick={() => setIsOpen(!isOpen)}

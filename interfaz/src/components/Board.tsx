@@ -62,7 +62,7 @@ const Board: React.FC<BoardProps> = ({ ledState, changeButtonState, modifyFields
     //Controla el estado del LED (si esta encendido o apagado y lo refleja en el SVG)
     useEffect(() => {
         if (!_.isEqual(prevLedState, ledState)) {
-            console.log("LED State changed:", ledState);
+           // console.log("LED State changed:", ledState);
             const svg = d3.select(svgRef.current);
             const led2light = svg.select("#led2light");
             const glow = svg.select("#glow");
