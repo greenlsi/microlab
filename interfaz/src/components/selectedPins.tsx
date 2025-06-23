@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/SelectedPins.css"; // Archivo CSS para estilos
-import alternateTable from "../assets/alternate_function2.json"; // Archivo JSON con datos de alternate function
+import alternateTable from "../assets/alternate_function.json"; // Archivo JSON con datos de alternate function
 import { AlternateTable, FieldsData, Field } from "../types/fieldTypes"; // Importar tipos de datos
 import { fetchTimerInfo } from "../hooks/useApi"; // Importar función para obtener información de temporizadores
 import { useEffect, useState } from "react";
